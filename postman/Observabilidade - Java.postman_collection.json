@@ -1,0 +1,56 @@
+{
+	"info": {
+		"_postman_id": "94c60b6d-632f-4cd5-b71a-71c7bb0b3f6c",
+		"name": "Observabilidade - Java",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8543961"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"moderador@email.com\",\n    \"senha\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Topicos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/topicos/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"topicos",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
