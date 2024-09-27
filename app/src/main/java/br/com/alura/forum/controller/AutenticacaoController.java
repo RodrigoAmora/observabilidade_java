@@ -23,18 +23,8 @@ import io.micrometer.core.instrument.MeterRegistry;
 @Profile(value = {"prod", "test"})
 public class AutenticacaoController {
 	
-	Counter authUserSuccess;
-	Counter authUserErrors;
-
-	public AutenticacaoController(MeterRegistry registry) {
-    	authUserSuccess = Counter.builder("auth_user_success")
-            .description("usuarios autenticados")
-            .register(registry);
-    	
-    	authUserErrors = Counter.builder("auth_user_error")
-                .description("erros de login")
-                .register(registry);
-    }
+	private Counter authUserSuccess;
+	private Counter authUserErrors;
     
 	@Autowired
 	private AuthenticationManager authManager;
@@ -42,6 +32,16 @@ public class AutenticacaoController {
 	@Autowired
 	private TokenService tokenService;
 	
+	public AutenticacaoController(MeterRegistry registry) {
+    	this.authUserSuccess = Counter.builder("auth_user_success")
+            .description("usuarios autenticados")
+            .register(registry);
+    	
+    	this.authUserErrors = Counter.builder("auth_user_error")
+                .description("erros de login")
+                .register(registry);
+    }
+
 	@PostMapping
 	public ResponseEntity<TokenDto> autenticar(@RequestBody @Valid LoginForm form) {
 		UsernamePasswordAuthenticationToken dadosLogin = form.converter();
@@ -49,12 +49,11 @@ public class AutenticacaoController {
 		try {
 			Authentication authentication = authManager.authenticate(dadosLogin);
 			String token = tokenService.gerarToken(authentication);
-			authUserSuccess.increment();
+			this.authUserSuccess.increment();
 			return ResponseEntity.ok(new TokenDto(token, "Bearer"));
-			
 		} catch (AuthenticationException e) {
-			authUserErrors.increment();
+			this.authUserErrors.increment();
 			return ResponseEntity.badRequest().build();
-		}	
+		}
 	}
 }
