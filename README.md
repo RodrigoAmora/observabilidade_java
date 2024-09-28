@@ -47,7 +47,17 @@ Para automatizar esse processo, basta executar o Shellscript <b>`docker_build_an
 
 Prometheus:
 -----------
-Endereço do Prometheus:
+Acesse o Prometheus através do endereço:
 ```shell script
 http://localhost:9090/
 ```
+
+Grafana:
+--------
+Acesse o Grafana através do endereço:
+```shell script
+http://localhost:3000/
+```
+
+<b>Username:</b> admin
+<b>Password:</b> admin
